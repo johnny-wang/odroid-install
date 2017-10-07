@@ -99,9 +99,12 @@ from /home/odroid/opencv_install/opencvsh_for_ubuntu_mate/OpenCV/opencv-3.3.0/mo
 ```
 https://stackoverflow.com/questions/30578381/failure-in-compiling-opencv-with-cap-gstreamer-error
 ```
-sudo apt-get install
+sudo apt-get install libgstreamer-plugins-base1.0-dev
 ```
 gstreamer prior to install is 0.10.36, after install is 1.11.91.
+```
+dpkg -l | grep libgstreamer
+```
 
 ### Can't run facedetector
 
@@ -110,4 +113,19 @@ Look for lena.jpg
 ```
 find . -name facedetect
 find . -name lena.jpg 
+```
+
+### apt is locked
+
+Something like this:
+```
+E: Could not get lock /var/lib/dpkg/lock - open (11 Resource temporarily unavailable)
+E: Unable to lock the administration directory (/var/lib/dpkg/) is another process using it?  
+```
+
+Ubuntu 16.04 introduced unattended upgrade by default via timer.
+To turn them off:
+```
+sudo systemctl disable apt-daily.service # disable run when system boot
+sudo systemctl disable apt-daily.timer   # disable timer run
 ```

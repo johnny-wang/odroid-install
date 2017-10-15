@@ -26,6 +26,18 @@ https://etcher.io/
 
 ## Install tools
 
+### apt lock error
+If you get this error:
+```
+Could not get lock /var/lib/dpkg/lock - open (11 Resource temporarily unavailable)
+```
+
+It is because 16.04 automatically has a check for upgrades. To disable this, run:
+```
+$ sudo systemctl disable apt-daily.service # disable run when system boot
+$ sudo systemctl disable apt-daily.timer   # disable timer run
+```
+
 ### Install web browser
 
 (Couldn't get Firefox to work properly)
@@ -67,20 +79,6 @@ sudo apt-get update
 sudo apt-get install ros-lunar-desktop-full
 ```
 
-5. Initialize and first-time setup
-```
-sudo rosdep init
-rosdep update
-echo "source /opt/ros/lunar/setup.bash" >> ~/.bashrc
-source ~/.bashrc
-source /opt/ros/lunar/setup.bash
-```
-
-6. Install ROS tools
-```
-sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential
-```
-
 ## Install OpenCV
 
 ```
@@ -113,12 +111,9 @@ from /home/odroid/opencv_install/opencvsh_for_ubuntu_mate/OpenCV/opencv-3.3.0/mo
 ```
 https://stackoverflow.com/questions/30578381/failure-in-compiling-opencv-with-cap-gstreamer-error
 ```
-sudo apt-get install libgstreamer-plugins-base1.0-dev
+sudo apt-get install
 ```
 gstreamer prior to install is 0.10.36, after install is 1.11.91.
-```
-dpkg -l | grep libgstreamer
-```
 
 ### Can't run facedetector
 
@@ -127,19 +122,4 @@ Look for lena.jpg
 ```
 find . -name facedetect
 find . -name lena.jpg 
-```
-
-### apt is locked
-
-Something like this:
-```
-E: Could not get lock /var/lib/dpkg/lock - open (11 Resource temporarily unavailable)
-E: Unable to lock the administration directory (/var/lib/dpkg/) is another process using it?  
-```
-
-Ubuntu 16.04 introduced unattended upgrade by default via timer.
-To turn them off:
-```
-sudo systemctl disable apt-daily.service # disable run when system boot
-sudo systemctl disable apt-daily.timer   # disable timer run
 ```

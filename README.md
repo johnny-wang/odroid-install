@@ -110,7 +110,7 @@ sudo apt-get install freenect python-freenect
 
 2. Plug in your Kinect. You should see the device in `lsusb`
 
-<img src="https://raw.githubusercontent.com/johnny-wang/odroid-install/master/images/kinect_lsusb.png" height="30%" width="30%">
+<img src="https://raw.githubusercontent.com/johnny-wang/odroid-install/master/images/kinect_lsusb.png" height="60%" width="60%">
 
 2. Test freenect
 ```
@@ -119,11 +119,11 @@ free-nect-glview
 
 A new window should pop up with a disparity and RGB view from the Kinect.
 
-<img src="https://raw.githubusercontent.com/johnny-wang/odroid-install/master/images/kinect_test_view.png" height="30%" width="30%">
+<img src="https://raw.githubusercontent.com/johnny-wang/odroid-install/master/images/kinect_test_view.png" height="60%" width="60%">
 
 The command will also output some keystroke options you can use to control and test out various features of the Kinect.
 
-<img src="https://raw.githubusercontent.com/johnny-wang/odroid-install/master/images/kinect_test_command.png" height="30%" width="30%">
+<img src="https://raw.githubusercontent.com/johnny-wang/odroid-install/master/images/kinect_test_command.png" height="60%" width="60%">
 
 ## Troubleshooting
 

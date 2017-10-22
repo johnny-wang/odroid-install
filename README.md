@@ -79,6 +79,18 @@ sudo apt-get update
 sudo apt-get install ros-lunar-desktop-full
 ```
 
+5. Initialize rosdep
+```
+sudo rosdep init
+rosdep update
+```
+
+6. Environment setup
+```
+echo "source /opt/ros/lunar/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
 ## Install OpenCV
 
 ```

@@ -1,0 +1,82 @@
+
+
+##
+www.20papercups.net/programming/kinect-on-ubuntu-with-openni/
+blog.boyeau.com/quick-install-install-java-on-odroid-ubuntu-server-14-04/
+
+Install Java on Odroid
+- Download Java 8 for ARM hard float
+http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+- NOTE: Download the first link. Odroid XU4 is armv7l which is 32-bit.
+```
+tar xfz jdk-8u144-linux-arm32-vfp-hflt.tar.gz
+sudo mv jdk1.8.0_144/ /opt/
+sudo update-alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_144/bin/javac 1
+sudo update-alternatives --install /usr/bin/java java /opt/jdk1.8.0_144/bin/java 1
+sudo update-alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_144/bin/jar 1
+sudo update-alternatives --config javac
+sudo update-alternatives --config java
+sudo update-alternatives --config jar
+```
+
+Check version
+```
+java -version
+javac -version
+```
+
+Install OpenNi
+
+
+---------------------------------
+
+/usr/include/features.h:367:25: fatal error: sys/cdefs.h: No such file or directory
+
+odroid@odroid:~/setup/OpenNi/Platform/Linux/CreateRedist$ sudo apt-get install g++-multilib
+
+---------------------------------
+
+/usr/bin/ld: error: ../../Bin/Arm-Release/libOpenNI.so uses VFP register arguments, ./Arm-Release/tinyxmlparser.o does not
+
+Remove "-mfloat-abi=softfp" from Platform/Linux/Build/Common/Platform.ARM file.
+
+-------------------------------------
+
+Install Java 8
+
+Download jdk-8u144-linux-arm32-vfp-hflt.tar.gz from http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+Note: make sure you get the 32bit version especially if you use XU4 armv7l (uname -a)
+
+
+
+
+odroid@odroid:~/setup/OpenNi/Platform/Linux/CreateRedist$ ./RedistMaker
+
+
+*********************************
+*   PrimeSense OpenNI Redist    *
+*     2017-10-16 05:04:32       *
+*********************************
+
+Target: Linux-Arm
+Version: 1.5.4.0
+Num of compile jobs: 16
+
+* Building OpenNI...
+../../../../Source/OpenNI/XnRecorderImpl.cpp: In constructor ‘xn::RecorderImpl::RecorderImpl()’:
+../../../../Source/OpenNI/XnRecorderImpl.cpp:51:18: warning: converting to non-pointer type ‘int’ from NULL [-Wconversion-null]
+  m_hRecorder(NULL)
+                  ^
+../../../../Source/OpenNI/XnPlayerImpl.cpp: In constructor ‘xn::PlayerImpl::PlayerImpl()’:
+../../../../Source/OpenNI/XnPlayerImpl.cpp:71:33: warning: converting to non-pointer type ‘int’ from NULL [-Wconversion-null]
+  m_bPlaybackThreadShutdown(FALSE)
+                                 ^
+make[1]: jar: Command not found
+make[1]: *** [../../../Bin/Arm-Release/org.OpenNI.jar] Error 127
+make: *** [Wrappers/OpenNI.java] Error 2
+failed to execute: make  -j16 -C /home/odroid/setup/OpenNi/Platform/Linux/CreateRedist/../Build > /home/odroid/setup/OpenNi/Platform/Linux/CreateRedist/Output/BuildOpenNI.txt
+Building Failed!
+odroid@odroid:~/setup/OpenNi/Platform/Linux/CreateRedist$ which jar
+odroid@odroid:~/setup/OpenNi/Platform/Linux/CreateRedist$ 
+

@@ -1,4 +1,6 @@
 
+These are random notes I took while trying to setup Kinect with ROS Kinetic. This was an attempt to
+get OpenNI to work. I ended up getting freenect to work instead. See README.md.
 
 ##
 www.20papercups.net/programming/kinect-on-ubuntu-with-openni/

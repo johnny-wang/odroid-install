@@ -1,6 +1,7 @@
 ## Overview
 
-These are installation steps for Odroid XU4, Ubuntu 16.04, ROS Lunar, and OpenCV 3.3.
+The end goal is to have ROS running with OpenCV using Microsoft Kinect V1.
+These are installation steps for Odroid XU4, Ubuntu 16.04, ROS Kinetic, and OpenCV 3.3.
 
 ## Install Ubuntu 16.04
 
@@ -56,7 +57,7 @@ sudo apt-get install vim
 sudo apt-get install git
 ```
 
-## Install ROS Lunar
+## Install ROS Kinetic
 http://wiki.ros.org/Installation/UbuntuARM
 
 1. Set up sources.list
@@ -76,7 +77,7 @@ sudo apt-get update
 
 4. Install everything
 ```
-sudo apt-get install ros-lunar-desktop-full
+sudo apt-get install ros-kinetic-desktop-full
 ```
 
 5. Initialize rosdep
@@ -90,6 +91,20 @@ rosdep update
 echo "source /opt/ros/lunar/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
+
+## Install freenect
+```
+sudo apt-get install ros-kinetic-freenect-launch libfreenect-dev 
+```
+
+Launch in ROS
+```
+roslaunch freenect_launch freenect.launch
+```
+
+In a different terminal, open RVIZ. Add an image and select `/camera/depth/image_raw` topic. Should see something like:
+
+<img src="https://raw.githubusercontent.com/johnny-wang/odroid-install/master/images/kinect_depth_view.png" height="60%" width="60%">
 
 ## Install OpenCV
 
@@ -113,7 +128,30 @@ cd build/bin/
 ./cpp-example-facedetect ../../samples/data/lena.jpg
 ```
 
-## Setup Kinect 360
+## Troubleshooting
+
+### Gstreamer build error
+```
+from /home/odroid/opencv_install/opencvsh_for_ubuntu_mate/OpenCV/opencv-3.3.0/modules/videoio/src/cap_gstreamer.cpp:67:
+/usr/include/gstreamer-0.10/gst/pbutils/gstdiscoverer.h:35:9: error: ‘GstMiniObjectClass’ does not name a type
+ typedef GstMiniObjectClass GstDiscovererStreamInfoClass;
+```
+https://stackoverflow.com/questions/30578381/failure-in-compiling-opencv-with-cap-gstreamer-error
+```
+sudo apt-get install libgstreamer-plugins-base1.0-dev
+```
+gstreamer prior to install is 0.10.36, after install is 1.11.91.
+
+### Can't run facedetector
+
+Look for facedetector example binary
+Look for lena.jpg
+```
+find . -name facedetect
+find . -name lena.jpg 
+```
+
+## Check if Kinect 360 is working
 
 1. Install freenect
 ```
@@ -136,26 +174,3 @@ A new window should pop up with a disparity and RGB view from the Kinect.
 The command will also output some keystroke options you can use to control and test out various features of the Kinect.
 
 <img src="https://raw.githubusercontent.com/johnny-wang/odroid-install/master/images/kinect_test_command.png" height="60%" width="60%">
-
-## Troubleshooting
-
-### Gstreamer build error
-```
-from /home/odroid/opencv_install/opencvsh_for_ubuntu_mate/OpenCV/opencv-3.3.0/modules/videoio/src/cap_gstreamer.cpp:67:
-/usr/include/gstreamer-0.10/gst/pbutils/gstdiscoverer.h:35:9: error: ‘GstMiniObjectClass’ does not name a type
- typedef GstMiniObjectClass GstDiscovererStreamInfoClass;
-```
-https://stackoverflow.com/questions/30578381/failure-in-compiling-opencv-with-cap-gstreamer-error
-```
-sudo apt-get install
-```
-gstreamer prior to install is 0.10.36, after install is 1.11.91.
-
-### Can't run facedetector
-
-Look for facedetector example binary
-Look for lena.jpg
-```
-find . -name facedetect
-find . -name lena.jpg 
-```
